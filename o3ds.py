@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-
+import time
 from tpp.tppflush import *
 import sys
 from math import fabs
@@ -118,7 +118,7 @@ else:
 server=LumaInputServer(server)
 
 pygame.init()
-screen = pygame.display.set_mode((320, 240))
+screen = pygame.display.set_mode((320, 280))
 
 pygame.display.set_caption('touchscreen')
 botSr = pygame.image.load('lib/bottom.png')
@@ -181,6 +181,16 @@ while done==False:
 			if event.key == pygame.K_ESCAPE: #end program
 				server.clear_everything()
 				done = True
+			if event.key == pygame.K_F1:
+				print('Resetting...')
+				server.hid_press(HIDButtons.L)
+				server.hid_press(HIDButtons.R)
+				server.hid_press(HIDButtons.START)
+
+			if event.key == pygame.K_F9:
+				print('A')
+				server.hid_press(HIDButtons.A)
+				
 			if event.key in KBbutt:
 				server.hid_press(KBbutt[event.key])
 			#print(event.key)
@@ -191,6 +201,16 @@ while done==False:
 				server.special_unpress(Special_Buttons.HOME)
 			if event.key == KBDButtons.POWER: #power
 				server.special_unpress(Special_Buttons.POWER)
+			if event.key == pygame.K_F1:
+				print('Resetting...')
+				server.hid_unpress(HIDButtons.L)
+				server.hid_unpress(HIDButtons.R)
+				server.hid_unpress(HIDButtons.START)
+
+			
+			if event.key == pygame.K_F9:
+				server.hid_unpress(HIDButtons.A)
+			
 			if event.key in KBbutt:
 				server.hid_unpress(KBbutt[event.key])
 			server.send()
@@ -264,5 +284,6 @@ while done==False:
 							server.send()
 
 print("\nClearing everything and closing program")
+
 server.clear_everything()
 pygame.quit()

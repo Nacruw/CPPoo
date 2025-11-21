@@ -1,5 +1,6 @@
 VERSION = 1.20
 
+from enum import Flag, IntFlag, auto
 import sys
 import socket #imports module allowing connection to IRC
 from itertools import chain
